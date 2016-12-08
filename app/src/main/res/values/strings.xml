@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Socketcluster Android</string>
+    <string name="prompt_username">Username</string>
+    <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
+
+</resources>
