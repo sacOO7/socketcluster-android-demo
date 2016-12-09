@@ -8,15 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#ffffff"
     tools:context=".MainActivity">
-
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/emojicon_edit_text"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/container"
         android:orientation="vertical"
-        android:layout_margin="20dp"
-        android:layout_above="@+id/emojicon_edit_text"
-        android:layout_height="match_parent" />
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+    </ScrollView>
     <ImageView
         android:id="@+id/emoji_btn"
         android:layout_width="40dp"

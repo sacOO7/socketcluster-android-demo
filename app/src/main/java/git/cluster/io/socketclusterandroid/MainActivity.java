@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.neovisionaries.ws.client.WebSocketException;
@@ -42,10 +43,11 @@ import io.github.sac.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
-    String url="ws://192.168.0.2:8000/socketcluster/";
+    String url="ws://192.168.0.3:8000/socketcluster/";
     Socket socket;
     EmojiconEditText emojiconEditText;
     ImageView emojiButton;
+    ScrollView scrollView;
     ImageView submitButton;
     View rootView;
     LinearLayout container;
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         emojiButton = (ImageView) findViewById(R.id.emoji_btn);
         submitButton = (ImageView) findViewById(R.id.submit_btn);
         container= (LinearLayout) findViewById(R.id.container);
+        scrollView= (ScrollView) findViewById(R.id.scroll);
         emojiconEditText = (EmojiconEditText) findViewById(R.id.emojicon_edit_text);
         emojIcon=new EmojIconActions(this,rootView,emojiconEditText,emojiButton,"#495C66","#DCE1E2","#E6EBEF");
         emojIcon.ShowEmojIcon();
@@ -128,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         username= (EditText) v.findViewById(R.id.username_input);
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setView(v)
+                .setCancelable(false)
                 .setPositiveButton(R.string.login, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -224,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         container.addView(textView);
+                                        scrollView.scrollTo(0,scrollView.getBottom());
                                     }
                                 });
                             }else{
@@ -248,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     container.addView(textView);
+                                    scrollView.scrollTo(0,scrollView.getBottom());
                                 }
                             });
 
@@ -289,7 +295,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onDestroy() {
+    public void onBackPressed() {
+
         JSONObject object=new JSONObject();
         try {
             object.put("ismessage",false);
@@ -299,7 +306,12 @@ public class MainActivity extends AppCompatActivity {
         }
         socket.getChannelByName("MyClassroom").publish(object);
 
-        socket.disconnect();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+
         super.onDestroy();
     }
 }
