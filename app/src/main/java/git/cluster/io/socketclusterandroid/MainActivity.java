@@ -1,13 +1,10 @@
 package git.cluster.io.socketclusterandroid;
 
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.BoolRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -43,7 +40,7 @@ import io.github.sac.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
-    String url="ws://192.168.0.3:8000/socketcluster/";
+    String url="ws://192.168.0.4:8000/socketcluster/";
     Socket socket;
     EmojiconEditText emojiconEditText;
     ImageView emojiButton;
@@ -192,16 +189,17 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!typing){
                     typing=true;
-
-                    JSONObject object=new JSONObject();
-                    try {
-                        object.put("user",Username);
-                        object.put("istyping",true);
-                        object.put("data","<b>"+Username+"</b> is typing...");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (!s.equals("")) {
+                        JSONObject object = new JSONObject();
+                        try {
+                            object.put("user", Username);
+                            object.put("istyping", true);
+                            object.put("data", "<b>" + Username + "</b> is typing...");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        socket.getChannelByName("MyClassroom").publish(object);
                     }
-                    socket.getChannelByName("MyClassroom").publish(object);
                 }
 
                 Typinghandler.removeCallbacks(onTypingTimeout);
