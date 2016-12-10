@@ -11,7 +11,7 @@ This is a simple chat demo using socketcluster and Android. Start socketcluster 
 
 ## Demo 
 --------
-![](https://github.com/sacOO7/socketcluster-android-demo/blob/master/fast_chat.gif =640x400)
+![](https://github.com/sacOO7/socketcluster-android-demo/blob/master/fast_chat.gif)
 
 ## License
 ---------
