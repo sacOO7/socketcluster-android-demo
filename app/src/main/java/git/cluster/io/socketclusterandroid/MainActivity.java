@@ -97,12 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         socket.setReconnection(new ReconnectStrategy().setMaxAttempts(10).setDelay(3000));
 
-        EventThread.exec(new Runnable() {
-            @Override
-            public void run() {
-                socket.connect();
-            }
-        });
+        socket.connectAsync();
 
         rootView = findViewById(R.id.root_view);
         emojiButton = (ImageView) findViewById(R.id.emoji_btn);
